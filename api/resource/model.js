@@ -22,7 +22,7 @@ const find = async () => {
 
 const create = async (resource) => {
   const [id] = await db("resources").insert(resource);
-  const newPost = await find().where({ id }).first();
+  const newPost = await find().where("id", id).first();
   return {
     resource_id: newPost.resource_id,
     resource_name: newPost.resource_name,

@@ -22,7 +22,12 @@ const findById = async (project_id) => {
 const create = async (project) => {
   const [id] = await db("projects").insert(project);
   const newProject = await findById(id);
-  return newProject;
+  return {
+    project_id: newProject.project_id,
+    project_name: newProject.project_name,
+    project_description: newProject.project_description,
+    project_completed: Boolean(newProject.project_completed),
+  };
 };
 
 module.exports = { find, findById, create };
