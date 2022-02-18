@@ -26,14 +26,19 @@ const find = async () => {
   return taskProjectStructure;
 };
 
-const findById = async (task_id) => {
+const findTaskById = async (task_id) => {
   const task = await db("tasks").where("task_id", task_id).first();
   return task;
 };
 
+// const findProjectById = async (project_id) => {
+//   const project = await db("projects").where("project_id", project_id).first();
+//   return project;
+// };
+
 const create = async (task) => {
   const [id] = await db("tasks").insert(task);
-  const newTask = await findById(id);
+  const newTask = await findTaskById(id);
 
   return {
     task_id: newTask.task_id,
@@ -44,4 +49,4 @@ const create = async (task) => {
   };
 };
 
-module.exports = { find, findById, create };
+module.exports = { find, findTaskById, create };
