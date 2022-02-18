@@ -13,16 +13,25 @@ const find = async () => {
   return resourcesStructure;
 };
 
-// const findById = async (resource_id) => {
-//   const resource = await db("resources")
-//     .where("resource_id", resource_id)
-//     .first();
-//   return resource;
-// };
+const findByName = async (resource_name) => {
+  const selectedName = await db("resources")
+    .where("resource_name", resource_name)
+    .first();
+  return selectedName;
+};
+
+const findById = async (resource_id) => {
+  const resource = await db("resources")
+    .where("resource_id", resource_id)
+    .first();
+  return resource;
+};
 
 const create = async (resource) => {
-  const [id] = await db("resources").insert(resource);
-  const newPost = await find().where("id", id).first();
+  const [resource_id] = await db("resources").insert(resource);
+  const newPost = await db("resources")
+    .where("resource_id", resource_id)
+    .first();
   return {
     resource_id: newPost.resource_id,
     resource_name: newPost.resource_name,
@@ -32,5 +41,6 @@ const create = async (resource) => {
 
 module.exports = {
   find,
+  findByName,
   create,
 };

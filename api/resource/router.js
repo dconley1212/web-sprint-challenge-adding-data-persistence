@@ -1,17 +1,14 @@
 // build your `/api/resources` router here
 const router = require("express").Router();
+const { checkNameUnique } = require("./resource-middleware");
 const Resources = require("./model");
 
-router.post("/", async (req, res, next) => {
+router.post("/", checkNameUnique, async (req, res, next) => {
   try {
-    if (req.body) {
-      const newResource = await Resources.create(req.body);
-      res.status(201).json(newResource);
-    } else {
-      next({ status: 400, message: "missing something in your request" });
-    }
-  } catch (error) {
-    next(error);
+    const newResource = await Resources.create(req.body);
+    res.status(201).json(newResource);
+  } catch (err) {
+    next(err);
   }
 });
 
