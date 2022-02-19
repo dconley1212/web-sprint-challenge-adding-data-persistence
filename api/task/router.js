@@ -1,4 +1,3 @@
-// build your `/api/tasks` router here
 const router = require("express").Router();
 const {
   checkAllRequiredFields,
@@ -10,8 +9,8 @@ router.get("/", async (req, res, next) => {
   try {
     const tasksAndProjects = await TasksModel.find();
     res.status(200).json(tasksAndProjects);
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
   }
 });
 
